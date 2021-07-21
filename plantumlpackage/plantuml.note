@@ -1,0 +1,1 @@
+java -jar plantuml.jar file1 file2 file3

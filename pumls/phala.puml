@@ -1,0 +1,20 @@
+@startuml  phala 
+
+'节点注册过程 gatekeeper或者miner
+gatekeeper -> gatekeeper: pRuntime.GetIdentity
+
+gatekeeper -> gatekeeper : pRuntime.GetRAQuote
+
+gatekeeper -> Remote_Attestation_Service : q
+
+Remote_Attestation_Service  -> gatekeeper: q_signed
+
+note right
+Try also
+<math>d/dxf(x)=lim_(h->0)(f(x+h)-f(x))/h</math>
+<math>P(y|bb"x") or f(bb"x")+epsilon</math>
+end note
+' gatekeeper -> blockchain : q_signed
+
+
+@enduml
