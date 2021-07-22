@@ -3,6 +3,9 @@
 ##### 使用方法
 ```shell
 java -jar plantuml.jar file1 file2 file3
+
+### example
+java -jar plantumlpackage/plantuml.1.2021.8.jar pumls/phala.puml 
 ```
 
 ##### 目前使用的package信息 会不定期更新最新版本

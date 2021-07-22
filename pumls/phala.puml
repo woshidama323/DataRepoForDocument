@@ -1,19 +1,25 @@
-@startuml  phala 
+@startuml  Node-Registration 
+======注册开始======
+'节点注册过程 gatekeeper或者miner 这里统称为worker node
+workerNode -> workerNode: pRuntime.GetIdentity\n获取到<math>pk_n</math>
 
-'节点注册过程 gatekeeper或者miner
-gatekeeper -> gatekeeper: pRuntime.GetIdentity
+workerNode -> workerNode : pRuntime.GetRAQuote\n生成<math>q_{unsign\ed}</math>
 
-gatekeeper -> gatekeeper : pRuntime.GetRAQuote
+workerNode -> Remote_Attestation_Service : 请求验证与签名
+activate Remote_Attestation_Service
+Remote_Attestation_Service  -> workerNode: 返回<math>q_{sign\ed}</math>
+deactivate 
 
-gatekeeper -> Remote_Attestation_Service : q
-
-Remote_Attestation_Service  -> gatekeeper: q_signed
-
-note right
-Try also
-<math>d/dxf(x)=lim_(h->0)(f(x+h)-f(x))/h</math>
-<math>P(y|bb"x") or f(bb"x")+epsilon</math>
-end note
+workerNode -> blockchain :提交到链上<math>(pk_n,q_{sign\ed})</math>
+activate blockchain
+blockchain -> blockchain: 链上确认
+======注册结束======
+deactivate
+' note right
+' Try also
+' <math>d/dxf(x)=lim_(h->0)(f(x+h)-f(x))/h</math>
+' <math>P(y|bb"x") or f(bb"x")+epsilon</math>
+' end note
 ' gatekeeper -> blockchain : q_signed
 
 
