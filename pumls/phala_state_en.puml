@@ -1,0 +1,16 @@
+@startuml  State-Encryption
+====状态加密过程==
+'节点注册过程 gatekeeper或者miner 这里统称为worker node
+Gatekeepers -> Gatekeepers: 创建合约Key <math>k_{c_{i}}</math> \n并保存在pruntime中
+
+
+'miner 想运行一个合约，先向gatekeeper获取合约key 
+Miner -> Gatekeepers: miner需要执行合约 \n向gatekeeper获取合约key
+
+
+Miner -> Miner: 执行完合约，更新合约最新的状态数据
+
+Miner -> Blockchain: 并保存到blockchain中
+
+
+@enduml

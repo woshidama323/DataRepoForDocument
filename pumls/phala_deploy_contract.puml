@@ -1,0 +1,44 @@
+@startuml  deploy_contract
+
+Developer -> Blockchain :
+'创世块出来之前
+note over Genesis_Node
+调用pRuntime.Bootstrap,
+并产生<math>I_{g}(pk_{g},sk_{g})</math>
+end note
+
+Blockchain -> GateKeeper: 为该合约生成<math>k_{c_{i}}</math>
+GateKeeper -> GateKeeper
+note over GateKeeper,GateKeeper
+用自己的RootKey <math>k_{r}^((n))</math>
+加密该合约的key<math>k_{r}^((n))</math>
+作为链的状态广播到主网上
+end note
+
+Developer -> Blockchain: find 可用的miner用于执行合约
+Blockchain ->Developer :返回可用的miner
+
+Developer-> MinerNode:挑中miner后者自建miner 执行合约
+
+MinerNode -> GateKeeper:
+note over MinerNode,GateKeeper
+通过安全通道,调用
+pRuntime.GetContractKey
+获取到合约的key <math>k_{c_{i}}</math>
+end note
+
+GateKeeper -> MinerNode:
+note over GateKeeper,MinerNode
+返回miner该合约key <math>k_{c_{i}}</math>
+end note
+
+
+MinerNode -> Blockchain: 
+note over MinerNode,Blockchain
+执行合约代码，并用<math>k_{c_{i}}</math>
+签名执行状态发布到链上
+end note
+
+
+
+@enduml

@@ -1,0 +1,20 @@
+@startuml  phala_execute_contract
+
+MinerNode -> Blockchain :调pRuntime.SyncBlockchain获取到events
+MinerNode -> MinerNode: 
+note over MinerNode
+取出与当前合约相关的事件，
+执行合约
+并产生Chainview （Chainstate的视图）
+end note
+
+'查询逻辑
+user -> Blockchain:用户通过调用pRuntime.Query查询Chainview
+Blockchain->Blockchain: 
+note over Blockchain
+因为任何人都可以通过调用pRuntime.Query查询，
+blockchain可以对比授权信息决定是否返回查询结果
+end note
+Blockchain -> user:返回用户目标Chainview
+
+@enduml

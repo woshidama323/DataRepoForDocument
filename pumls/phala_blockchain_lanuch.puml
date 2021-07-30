@@ -1,0 +1,45 @@
+@startuml  blockchain
+==Before the genesis block==
+
+Genesis_Node -> Genesis_Node :
+
+'创世块出来之前
+note over Genesis_Node
+调用pRuntime.Bootstrap,
+并产生<math>I_{g}(pk_{g},sk_{g})</math>
+end note
+
+
+Genesis_Node -> blockchain:开始出块 形成blockchain
+'出块，pk 广播出去用于
+note over Genesis_Node
+<math>pk_{g}</math>广播出去 以便其他worker节点与本节点建立安全连接
+<math>k_{r}^((0))</math>保存在Genesis节点中，用于blockchain后续签名等用途
+end note
+
+==pre-launch phase==
+
+'合约启动 启动Governance 模块
+'
+WorkerNode -> blockchain: 工作节点开始注册到链上
+
+blockchain -> gatekeeper:从注册进来的worker节点中选出gatekeeper节点
+note over blockchain,gatekeeper
+选举方式采用类似porkdot的NPOS方式完成
+end note
+
+gatekeeper -> Genesis_Node: 
+note over gatekeeper,Genesis_Node
+1. 建立TLS网络连接
+2. 请求获得Genesis_Node生成的<math>k_{r}^((0))</math>
+3. Genesis_Node 从blockchain上确认
+end note
+
+Genesis_Node -> blockchain :确认请求过来的是否为被选择的gatekeeper
+blockchain -> Genesis_Node:确定是
+Genesis_Node -> gatekeeper:响应<math>k_{r}^((0))</math>给gatekeeper
+
+blockchain -> Genesis_Node: gatekeeper成功获取key并被blockchain确认
+Genesis_Node -> Genesis_Node: 确认任务完成，自毁
+
+@enduml
