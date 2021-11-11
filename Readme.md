@@ -18,3 +18,12 @@ plantumlpackage/
 ├── plantuml-jlatexmath.zip
 ├── plantuml.1.2021.8.jar
 ```
+
+
+#### 小技巧
+```shel
+因为目前在码云 github上都想有一个备份，那么想平时开发的时候两个repo都push上去
+https://gist.github.com/rvl/c3f156e117e22a25f242
+
+这里有参考，有空研究
+```
